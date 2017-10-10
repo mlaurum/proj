@@ -1,0 +1,45 @@
+% Search for all the places that say "PUT SOMETHING HERE".
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,textcomp,amssymb,geometry,graphicx,enumerate}
+\usepackage{listings}
+\usepackage{pdfpages}
+
+\def\Name{Mike Lee, Jerry Park}  % Your name
+\def\SID{12345678, 26517820}  % Your student ID number
+\def\Homework{9} % Number of Homework
+\def\Session{Spring 2017}
+
+
+\title{CS170 Spring 2017 --- Project\ Writeup}
+\author{\Name \ (SID: \SID)}
+\markboth{CS170--\Session\  Homework \Homework\ \Name}{CS170--\Session\ Homework \Homework\ \Name}
+\pagestyle{myheadings}
+\date{}
+
+\newenvironment{qparts}{\begin{enumerate}[{(}a{)}]}{\end{enumerate}}
+\def\endproofmark{$\Box$}
+\newenvironment{proof}{\par{\bf Proof}:}{\endproofmark\smallskip}
+
+\textheight=9in
+\textwidth=6.5in
+\topmargin=-.75in
+\oddsidemargin=0.25in
+\evensidemargin=0.25in
+
+
+\begin{document}
+\maketitle
+
+\section*{Main Idea}
+
+\ \ \ \ \ This problem is similar to the Knapsack problem but in a more general version. The problem is also similar to an Independent Set problem because the constraints can be represented by a graph and the solution will only have classes that are an independent set of nodes of classes. To approach this problem with naive dynamic programming would yield exponential time and therefore to process 21 input files in a time-efficient manner, we implemented a greedy scheme which runs much quicker than exponential time. Depending on the input file, the runtime was from 3 seconds and occasionally up to a few minutes.
+
+Our algorithm is as follows. Once we read in the input file and setting variables and lists accordingly, we created an array full of ones which represent each class and iterate through each constraint. For each class in this particular constraint, we added the length of the list to its value in the array. This array basically represents how many classes this one particular class constrains and mathematically represents the degree of the class node if all constraints are represented as a graph.
+
+We sorted the items with a priority queue with a heuristic (Resale Value - Cost)/(Degree in connectivity)$^{exp}$, where $exp$ is the variable we change to find the most profitable set of items. This heuristic made the algorithm pick items that are more profitable and items that do not constrain us from picking other items before any other item. In the process of picking, we checked constraints and overweight and overspending along the way.
+
+We ran values ranging from zero to two for the variable $exp$ as different problem input had different optimal values for $exp$. The degree of connectivity improved the profit from a slight 10\% to sometimes 150\%.
+
+
+\end{document}
